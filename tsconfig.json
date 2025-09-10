@@ -4,6 +4,7 @@
     // File Layout
     "rootDir": "./src",
     "outDir": "./build",
+    // "allowImportingTsExtensions": true
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -11,7 +12,7 @@
     "target": "esnext",
     "types": ["node"],
     // For nodejs:
-    "lib": ["DOM", "ESNext"],
+    "lib": ["ESNext"],
     // "types": ["node"],
     // and npm install -D @types/node
 
