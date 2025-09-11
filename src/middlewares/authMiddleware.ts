@@ -2,13 +2,6 @@ import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 
-const payload = {
-    user: {
-        id: ""
-    }
-}
-
-
 export const Authorization = (req: Request, res: Response, next: NextFunction) => {
    
         
@@ -33,12 +26,13 @@ export const Authorization = (req: Request, res: Response, next: NextFunction) =
         // console.log(realToken);
         
         
-        const decoded = jwt.verify(realToken, process.env.ACCESS_TOKEN as string) as typeof payload;
+        const decoded = jwt.verify(realToken, process.env.ACCESS_TOKEN as string) as any;
         // console.log(decoded);
 
        ( req as any) .user = decoded
-       console.log((req as any).user);
-       console.log((req as any).user.id);
+       
+    //    console.log((req as any).user);
+    //    console.log((req as any).user.id);
 
        
        
@@ -49,17 +43,16 @@ export const Authorization = (req: Request, res: Response, next: NextFunction) =
         }
 
 
-
-   
-
-      
-
-    //    req.user = decoded.user
-        //  console.log(req.user);
-        //  console.log(req.user.username)
-
-
-        next()
+          next()
 
     }
+
+export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
+    const user = (req as any).user;
+    if((req as any).user =="admin"){
+        next()
+    } else {
+        return res.status(403).json({message: "Access denied, admin only"});
+    }
+}
 
